@@ -3,13 +3,13 @@
  *
  * @author Jan Philip Kozina 4052980 group 11a
  * @author Sina Meier 4738550 group 11a
- *
  */
 class SortedIntSet extends IntSet {
     private int[] set;
 
     /**
      * Creates a sorted set of numbers
+     *
      * @param a elements
      */
     SortedIntSet(int... a) {
@@ -25,7 +25,7 @@ class SortedIntSet extends IntSet {
      * @param set int array to check
      * @return true if sorted, else false
      */
-    public boolean isSorted(int[] set) {
+    private boolean isSorted(int[] set) {
         int j = 0;
         boolean b = false;
         for (int i = 1; i < set.length; i++) {
@@ -41,10 +41,11 @@ class SortedIntSet extends IntSet {
 
     /**
      * sorts a set of numbers ascending with bubblesort-algorithm
+     *
      * @param a int array
      * @return ascending sorted int array
      */
-    public int[] bubbleSort(int[] a) {
+    private int[] bubbleSort(int[] a) {
         int temp;
         for (int i = 1; i < a.length; i++) {
             for (int j = 0; j < a.length - i; j++) {
@@ -65,7 +66,8 @@ class SortedIntSet extends IntSet {
         StringBuilder x = new StringBuilder();
         x = x.append("{ ");
         for (int i : set) {
-            x = x.append(i + " ");
+            x = x.append(i);
+            x = x.append(" ");
         }
         x = x.append('}');
         return x.toString();

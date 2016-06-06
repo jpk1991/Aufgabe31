@@ -47,7 +47,7 @@ class IntSet {
     }
 
     /**
-     * adds all elems from the given set to the set
+     * adds all elements from the given set to the set
      *
      * @param a source set
      */
@@ -187,7 +187,7 @@ class IntSet {
         StringBuilder x = new StringBuilder();
         x = x.append("{ ");
         for (int i : set) {
-            x = x.append(i + " ");
+            x = x.append(i).append(" ");
         }
         x = x.append('}');
         return x.toString();
@@ -224,9 +224,31 @@ class IntSet {
         return true;
     }
 
-
+    /**
+     * Checks if
+     *
+     * @param o Object
+     * @return true if object is a set oder sorted set and both sets are subsets of each other, else false
+     */
+    @Override
     public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null) {
+            return false;
+        } else if (o.getClass() != getClass()) {
+            return false;
+        }
+        IntSet other = (IntSet) o;
+        if (isSubSet(other) && other.isSubSet(this)) {
+            return true;
+        }
+        //SortedIntSet other1 = (SortedIntSet) o;
+        //if (isSubSet(other1) && other1.isSubSet((SortedIntSet) this)) {
+        //  return true;
+        //} else {
         return false;
+        //}
     }
 
     /**
@@ -242,6 +264,8 @@ class IntSet {
         IntSet set3 = new IntSet(2, 4, 4, 7, 9);
         SortedIntSet set4 = new SortedIntSet(1, 2, 3, 4, 5);
         SortedIntSet set5 = new SortedIntSet(1, 8, 7, 2, 0, 4, 4, 5);
+        IntSet set6 = new IntSet(2, 7, 4, 9);
+        SortedIntSet set7 = new SortedIntSet(2, 7, 4, 9);
         set3.print();
         set1.addAll(set2);
         set1.print();
@@ -259,5 +283,11 @@ class IntSet {
         System.out.println(set1.toString());
         System.out.println(set2.isSubSet(set3));
         System.out.println(set5);
+        System.out.println(set5.equals(set5));
+        System.out.println(set3.equals(set6));
+        System.out.println(set6.equals(set3));
+        System.out.println(set5.equals(set6));
+        System.out.println(set6.equals(set7));
+        System.out.println(set7.equals(set6));
     }
 }
