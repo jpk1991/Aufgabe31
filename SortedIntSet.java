@@ -1,5 +1,5 @@
 /**
- * A sorted collection
+ * A collection like IntSet, but the collection is sorted ascending.
  *
  * @author Jan Philip Kozina 4052980 group 11a
  * @author Sina Meier 4738550 group 11a
@@ -15,8 +15,9 @@ class SortedIntSet extends IntSet {
     SortedIntSet(int... a) {
         set = makeSet(a);
         if (!isSorted(set)) {
-            set = bubbleSort(makeSet(a));
+            set = bubbleSort(set);
         }
+        super.setSet(set);
     }
 
     /**
@@ -61,6 +62,86 @@ class SortedIntSet extends IntSet {
         return a;
     }
 
+    /**
+     * adds all elements from the given set to the set
+     *
+     * @param a source set
+     */
+    public void addAll(SortedIntSet a) {
+        int[] union = new int[set.length + a.set.length];
+        System.arraycopy(set, 0, union, 0, set.length);
+        System.arraycopy(a.set, 0, union, set.length, a.set.length);
+        set = bubbleSort(makeSet(union));
+    }
+
+    /**
+     * adds all elements from the given set to the set
+     *
+     * @param a source set
+     */
+    @Override
+    public void addAll(IntSet a) {
+        super.addAll(a);
+        set = bubbleSort(super.getSet());
+    }
+
+    /**
+     * remove all elements from the set witch are not in the given set
+     *
+     * @param a source set
+     */
+    public void retainAll(SortedIntSet a) {
+        int[] intersection = new int[set.length];
+        int counter = 0;
+        for (int aSet : set) {
+            for (int j = 0; j < a.set.length; j++) {
+                if (aSet == a.set[j]) {
+                    intersection[counter] = aSet;
+                    counter++;
+                }
+            }
+        }
+        set = bubbleSort(makeSet(intersection));
+        super.setSet(set);
+    }
+
+    /**
+     * remove all elements from the set witch are not in the given set
+     *
+     * @param a source set
+     */
+    @Override
+    public void retainAll(IntSet a) {
+        super.retainAll(a);
+        set = bubbleSort(super.getSet());
+    }
+
+    /**
+     * remove all elements from the set witch are in the given set
+     *
+     * @param a source set
+     */
+    public void removeAll(SortedIntSet a) {
+        int[] setMinus = new int[set.length];
+        int counter = 0;
+        next:
+        for (int aSet : set) {
+            for (int j = 0; j < a.set.length; j++) {
+                if (aSet == a.set[j]) {
+                    continue next;
+                }
+            }
+            setMinus[counter] = aSet;
+            counter++;
+        }
+        set = bubbleSort(makeSet(setMinus));
+        super.setSet(set);
+    }
+
+    /**
+     * toString method
+     * @return set in object as string
+     */
     @Override
     public String toString() {
         StringBuilder x = new StringBuilder();

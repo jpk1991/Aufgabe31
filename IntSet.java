@@ -179,6 +179,15 @@ class IntSet {
     }
 
     /**
+     * Set method
+     *
+     * @param set int array
+     */
+    public void setSet(int[] set) {
+        this.set = set;
+    }
+
+    /**
      * toString method.
      *
      * @return set object as string
@@ -234,60 +243,16 @@ class IntSet {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        } else if (o == null) {
-            return false;
-        } else if (o.getClass() != getClass()) {
+        }
+        if (o == null) {
             return false;
         }
-        IntSet other = (IntSet) o;
-        if (isSubSet(other) && other.isSubSet(this)) {
-            return true;
+        if (o instanceof IntSet) {
+            IntSet other = (IntSet) o;
+            return isSubSet(other) && other.isSubSet(this);
         }
-        //SortedIntSet other1 = (SortedIntSet) o;
-        //if (isSubSet(other1) && other1.isSubSet((SortedIntSet) this)) {
-        //  return true;
-        //} else {
         return false;
-        //}
     }
 
-    /**
-     * main method
-     *
-     * @param args unused
-     */
-    public static void main(String[] args) {
-        IntSet set1 = new IntSet(1, 2, 2, 4, -1, -42, 0, 3, 54, 234, 5654, 12, 3, 6, 3);
-        set1.print();
-        IntSet set2 = new IntSet(2, 2, 4, 5, 7, 1, 3);
-        set2.print();
-        IntSet set3 = new IntSet(2, 4, 4, 7, 9);
-        SortedIntSet set4 = new SortedIntSet(1, 2, 3, 4, 5);
-        SortedIntSet set5 = new SortedIntSet(1, 8, 7, 2, 0, 4, 4, 5);
-        IntSet set6 = new IntSet(2, 7, 4, 9);
-        SortedIntSet set7 = new SortedIntSet(2, 7, 4, 9);
-        set3.print();
-        set1.addAll(set2);
-        set1.print();
-        set1.removeAll(set2);
-        set1.print();
-        set1.addAll(set2);
-        set1.print();
-        set1.retainAll(set2);
-        set1.print();
 
-        System.out.println("set1.min() = " + set1.min());
-        System.out.println("set1.max() = " + set1.max());
-        System.out.println("set1.avg() = " + set1.avg());
-        System.out.println("set1.sum() = " + set1.sum());
-        System.out.println(set1.toString());
-        System.out.println(set2.isSubSet(set3));
-        System.out.println(set5);
-        System.out.println(set5.equals(set5));
-        System.out.println(set3.equals(set6));
-        System.out.println(set6.equals(set3));
-        System.out.println(set5.equals(set6));
-        System.out.println(set6.equals(set7));
-        System.out.println(set7.equals(set6));
-    }
 }
